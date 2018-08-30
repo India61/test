@@ -1,3 +1,8 @@
+// global array/object för lagring av todos
+var todoObj = {};
+
+
+
 
 //inläsning av viktiga element
 const newTaskButton = document.getElementById('newTaskButton');
@@ -8,6 +13,8 @@ newTaskButton.addEventListener("click", saveNewTask);
 
 
 function saveNewTask(){
+
+    const id = "_"+ new Date().getTime();
 
     let newTask = document.getElementById("newTask").value;
 
@@ -23,15 +30,32 @@ function saveNewTask(){
         newTemplate.addEventListener("click", toNext);
         newTemplate.children[2].addEventListener("click", deleteParent);
         newTemplate.children[3].addEventListener("click", moveBack);
+        newTemplate.id = id;
 
         let todo = _classArr("kanban")[0];
         todo.appendChild(newTemplate);
+        
+
+        let todoInfo = {};
+        todoInfo.kanban = 0;
+        todoInfo.content = newTemplate;
+        todoObj[id] = todoInfo;
+
+        console.log(todoObj);
     }
 
 
 }
 
 function toNext(){
+    
+    //det vi klickade på finns i this
+    //det har ett id som låter oss komma åt todoObj
+    const id = this.id;
+    todoObj[id].kanban += 1;
+    console.log(todoObj);
+    
+    
     //Hämta kanbanklassen gör om till array
     const kanban = _classArr('kanban');
 
@@ -39,6 +63,7 @@ function toNext(){
 
     if(kanbanIndex+1<kanban.length)
         kanban[kanbanIndex+1].appendChild(this);
+
 }
 
 
@@ -52,6 +77,9 @@ function deleteParent(ev){
 }
 
 function moveBack(ev){
+
+
+
     ev.stopPropagation();
     const kanban = _classArr('kanban');
 
@@ -59,6 +87,12 @@ function moveBack(ev){
 
     if(kanbanIndex-1<kanban.length)
         kanban[kanbanIndex-1].appendChild(this.parentElement);
+
+        //det vi klickade på finns i this.parentElement
+        //det har ett id som låter oss komma åt todoObj
+        const id = this.parentElement.id;
+        todoObj[id].kanban -= 1;
+        console.log(todoObj);
 }
 
 
