@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kanban T4</title>
+    <link rel="stylesheet" href="kanban.css">
+
+</head>
+<body>
+    <main>
+        <div class="kanban todo">
+            <textarea placeholder="New task" id = "newTask"></textarea>
+            <button id = "newTaskButton">Save</button>
+
+        </div>
+        <div class="kanban inprogress"></div>
+        <div class="kanban done"></div>
+    </main>
+    
+
+
+
+    <div class = "taskTemplate">
+        <h2 class="date"></h2>
+        <p class="task"></p>
+        <button class="delete">delete</button>
+        <button class="back">&larr;</button>
+    </div>
+
+<script src="kanban.js"></script>
+</body>
+</html>
